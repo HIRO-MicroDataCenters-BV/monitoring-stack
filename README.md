@@ -85,7 +85,6 @@ kubectl expose service monitoring-stack-grafana --type=NodePort --target-port=30
 
 dashboard id : 3662
 
-
 separate installation for testing
 
 helm upgrade --install my-release influxdata/influxdb
@@ -93,3 +92,9 @@ helm upgrade --install my-release influxdata/influxdb
 helm show values prometheus-community/prometheus > values.yml
 
 helm uninstall telemetry -n monitoring
+
+kubectl port-forward svc/monitoring-stack-loki 3100:3100 -n monitoring
+
+debug loki/promtel
+
+kubectl port-forward monitoring-stack-loki-0 9080 -n monitoring

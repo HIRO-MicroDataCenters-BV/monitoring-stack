@@ -10,7 +10,7 @@ prometheus:
 
   server:
     remoteWrite:
-      - url: "http://monitoring-stack-influxdb.monitoring:8086/api/v1/prom/write?db=prometheus&u=admin&p=admin"
+      - url: http://{{ .Release.Name }}-influxdb:8086/api/v1/prom/write?db=prometheus&u=admin&p=admin
 
     global:
       ## How frequently to scrape targets by default
@@ -39,10 +39,17 @@ grafana:
         - name: Prometheus-hiro
           type: prometheus
           # this is clusterIP address of monitoring-stack-prometheus-server
-          url: http://monitoring-stack-prometheus-server:80
+          url: http://{{ .Release.Name }}-prometheus-server:80
           access: proxy
           isDefault: true
-
+        - name: Loki-hiro
+          type: loki
+          # this is clusterIP address of monitoring-stack-loki
+          url: http://{{ .Release.Name }}-loki:3100
+          access: proxy
+          jsonData:
+            timeout: 60
+            maxLines: 1000
 
 influxdb:
   image:
@@ -57,4 +64,11 @@ influxdb:
       value: "admin"
     - name: INFLUXDB_ADMIN_PASSWORD
       value: "admin"
+
+loki-stack:
+  promtail:
+    config:
+      clients:
+        - url: http://{{ .Release.Name }}-loki:3100/loki/api/v1/push
+
 
