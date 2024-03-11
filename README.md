@@ -83,8 +83,7 @@ minikube service telemetry-grafana-ext -n telemetry
 kubectl expose service monitoring-stack-grafana --type=NodePort --target-port=3000 --name=telemetry-grafana-ext
 
 
-dashboard id : 3662
-
+dashboard id : 3662, 15661, 8171, 15172
 
 separate installation for testing
 
@@ -93,3 +92,9 @@ helm upgrade --install my-release influxdata/influxdb
 helm show values prometheus-community/prometheus > values.yml
 
 helm uninstall telemetry -n monitoring
+
+kubectl port-forward svc/monitoring-stack-loki 3100:3100 -n monitoring
+
+debug loki/promtel
+
+kubectl port-forward monitoring-stack-loki-0 9080 -n monitoring
