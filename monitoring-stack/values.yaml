@@ -1,4 +1,4 @@
-# Default values for hiro-monitoring.
+# Default values for monitoring-stack.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -22,6 +22,7 @@ prometheus:
       ## How frequently to evaluate rules
       ##
       evaluation_interval: 1m
+
   kube-state-metrics:
     ## If false, kube-state-metrics sub-chart will not be installed
     ##
@@ -32,11 +33,12 @@ prometheus:
     enabled: true
 
 grafana:
+
   datasources:
     datasources.yaml:
       apiVersion: 1
       datasources:
-        - name: Prometheus-hiro
+        - name: Prometheus
           type: prometheus
           # this is clusterIP address of monitoring-stack-prometheus-server
           url: http://{{ .Release.Name }}-prometheus-server:80
@@ -50,6 +52,22 @@ grafana:
           jsonData:
             timeout: 60
             maxLines: 1000
+
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+        - name: 'default'
+          orgId: 1
+          folder: ''
+          type: file
+          disableDeletion: false
+          editable: true
+          options:
+            path: /var/lib/grafana/dashboards/default
+
+  dashboardsConfigMaps:
+    default: "grafana-dashboards"
 
 influxdb:
   image:
@@ -70,5 +88,3 @@ loki-stack:
     config:
       clients:
         - url: http://{{ .Release.Name }}-loki:3100/loki/api/v1/push
-
-

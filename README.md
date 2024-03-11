@@ -83,7 +83,7 @@ minikube service telemetry-grafana-ext -n telemetry
 kubectl expose service monitoring-stack-grafana --type=NodePort --target-port=3000 --name=telemetry-grafana-ext
 
 
-dashboard id : 3662
+dashboard id : 3662, 15661, 8171, 15172
 
 separate installation for testing
 
