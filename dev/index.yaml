@@ -3,7 +3,7 @@ entries:
   monitoring-stack:
   - apiVersion: v2
     appVersion: 0.1.9
-    created: "2024-08-02T13:03:40.437763598Z"
+    created: "2024-08-02T13:04:02.797343695Z"
     dependencies:
     - condition: prometheus.enabled
       name: prometheus
@@ -54,10 +54,10 @@ entries:
       repository: https://jmcgrath207.github.io/k8s-ephemeral-storage-metrics/chart
       version: 1.11.1
     description: A Helm chart for Kubernetes
-    digest: 31a36b4552f2daa25f178b5feb1bef048b2654125f1e09c8c69f4858d5a2b8c1
+    digest: 5bfcc82a1a156bce8953adb14650044663eb693731eef4069e71ba00c708fded
     name: monitoring-stack
     type: application
     urls:
     - https://HIRO-MicroDataCenters-BV.github.io/monitoring-stack/dev/monitoring-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2024-08-02T13:03:40.406518065Z"
+generated: "2024-08-02T13:04:02.766091913Z"
