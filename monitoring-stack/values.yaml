@@ -61,7 +61,6 @@ prometheus:
   prometheus-node-exporter:
     enabled: true
 
-
   extraScrapeConfigs: |
     - job_name: 'prometheus-node-exporter'
       kubernetes_sd_configs:
@@ -108,24 +107,8 @@ prometheus:
         action: keep
         regex: 'k8s-ephemeral-storage-metrics'
       - source_labels: [__meta_kubernetes_pod_ip]
-        replacement: '${1}:9100'
         target_label: __address__
-    - job_name: 'snmp-pdus'
-      static_configs:
-        - targets:
-          - 10.14.2.3  # SNMP device PDU#1.
-          - 10.14.2.4 # SNMP device PDC#2.
-      metrics_path: /snmp
-      params:
-        auth: [public_v2]
-        module: [apcups]
-      relabel_configs:
-        - source_labels: [__address__]
-          target_label: __param_target
-        - source_labels: [__param_target]
-          target_label: instance
-        - target_label: __address__
-          replacement: monitoring-stack-prometheus-snmp-exporter.monitoring.svc.cluster.local:9116  # The SNMP exporter's real hostname:port.      
+        replacement: $1:9100
 
 grafana:
   enabled: true
