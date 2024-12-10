@@ -1,6 +1,9 @@
 # Monitoring Stack
 
-# Build
+## Status
+The repository is deprecated. The successor is [glaciation-heu/monitoring-stack](https://github.com/glaciation-heu/monitoring-stack).
+
+## Build
 
 * Install [helm-docs](https://github.com/norwoodj/helm-docs).
 
